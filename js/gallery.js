@@ -29,7 +29,7 @@ const paintings = [
     { id: 12, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-17.jpg" },
     { id: 13, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-18.jpg" },
     { id: 14, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-19.jpg" },
-    { id: 15, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-20.jpg" },
+    { id: 15, title: "Untitled", medium: "Charcoal", image: "images/paintings/Hendrickson-20.jpg" },
     { id: 16, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-21.jpg" },
     { id: 17, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-22.jpg" },
     { id: 18, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-23.jpg" },
