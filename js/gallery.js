@@ -128,6 +128,14 @@ class Gallery {
                 this.nextImage();
             });
             
+            // Fullscreen button
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                    this.toggleFullscreen();
+                });
+            }
+            
             // Close on background click
             this.lightbox.addEventListener('click', (e) => {
                 if (e.target === this.lightbox) {
@@ -141,13 +149,21 @@ class Gallery {
                 
                 switch (e.key) {
                     case 'Escape':
-                        this.closeLightbox();
+                        if (this.lightbox.classList.contains('fullscreen')) {
+                            this.exitFullscreen();
+                        } else {
+                            this.closeLightbox();
+                        }
                         break;
                     case 'ArrowLeft':
                         this.previousImage();
                         break;
                     case 'ArrowRight':
                         this.nextImage();
+                        break;
+                    case 'f':
+                    case 'F':
+                        this.toggleFullscreen();
                         break;
                 }
             });
@@ -190,7 +206,51 @@ class Gallery {
      */
     closeLightbox() {
         this.lightbox.classList.remove('active');
+        this.lightbox.classList.remove('fullscreen');
         document.body.style.overflow = '';
+        
+        // Exit browser fullscreen if active
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+    }
+    
+    /**
+     * Toggle fullscreen mode
+     */
+    toggleFullscreen() {
+        if (this.lightbox.classList.contains('fullscreen')) {
+            this.exitFullscreen();
+        } else {
+            this.enterFullscreen();
+        }
+    }
+    
+    /**
+     * Enter fullscreen mode
+     */
+    enterFullscreen() {
+        this.lightbox.classList.add('fullscreen');
+        
+        // Request browser fullscreen for immersive experience
+        if (this.lightbox.requestFullscreen) {
+            this.lightbox.requestFullscreen();
+        } else if (this.lightbox.webkitRequestFullscreen) {
+            this.lightbox.webkitRequestFullscreen();
+        }
+    }
+    
+    /**
+     * Exit fullscreen mode
+     */
+    exitFullscreen() {
+        this.lightbox.classList.remove('fullscreen');
+        
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else if (document.webkitFullscreenElement) {
+            document.webkitExitFullscreen();
+        }
     }
     
     /**
