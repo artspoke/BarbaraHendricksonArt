@@ -4,8 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Debug: Log paintings array
-    console.log('window.paintings:', window.paintings);
     // Dynamically create hero slides from gallery images
     if (window.paintings && window.paintings.length > 0) {
         const heroSlideshow = document.querySelector('.hero-slideshow');
@@ -23,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- PURE OVERLAPPING FADE SLIDESHOW ---
     let heroSlideIndex = 0;
     let heroSlideTimer = null;
-    const FADE_DURATION = 6000; // ms
-    const SLIDE_DURATION = 6000; // ms
+    const FADE_DURATION = 24000; // ms (was 12000)
+    const SLIDE_DURATION = 24000; // ms (was 12000)
 
     function startHeroSlideshow() {
         const slides = document.querySelectorAll('.hero-slide');
@@ -64,13 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const xEnd = Math.floor(Math.random() * 40 - 20);   // -20 to 20px
         const yEnd = Math.floor(Math.random() * 40 - 20);   // -20 to 20px
         const keyframeName = 'pan_' + Math.floor(Math.random() * 1000000);
-        const keyframes = `@keyframes ${keyframeName} {\n  0% { transform: scale(4) translate(${xStart}px, ${yStart}px); }\n  100% { transform: scale(4) translate(${xEnd}px, ${yEnd}px); }\n}`;
-        const animation = `${keyframeName} 6s linear forwards`;
+        // Zoom from 4x to 5x
+        const keyframes = `@keyframes ${keyframeName} {\n  0% { transform: scale(4) translate(${xStart}px, ${yStart}px); }\n  100% { transform: scale(5) translate(${xEnd}px, ${yEnd}px); }\n}`;
+        const animation = `${keyframeName} 24s linear forwards`; // was 12s
         return { keyframes, animation, keyframeName };
     }
 
     function injectPanKeyframes(keyframes, keyframeName) {
-        // Remove previous style for this slide if exists
         let styleTag = document.getElementById('pan-keyframes-' + keyframeName);
         if (!styleTag) {
             styleTag = document.createElement('style');
@@ -90,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         current.classList.remove('active');
         current.style.zIndex = '1';
         current.style.opacity = '0';
-        // Do NOT reset animation/transform here
 
         // Apply new pan animation to incoming slide only
         const { keyframes, animation, keyframeName } = getRandomPanKeyframes();
@@ -118,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuToggle.classList.toggle('active');
         });
         
-        // Close menu when clicking nav links
         nav.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 nav.classList.remove('active');
@@ -175,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
     
-    // Observe sections for animation
     document.querySelectorAll('.about-section, .contact-section').forEach(section => {
         section.style.opacity = '0';
         section.style.transform = 'translateY(30px)';
@@ -190,11 +185,50 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         });
     });
-    
-    // Console message for curious developers
-    console.log('%c🎨 Barbara Hendrickson Art', 'font-size: 20px; font-weight: bold;');
-    console.log('%cAll artwork is protected by copyright.', 'font-size: 12px; color: #666;');
 });
+
+// Move hero fullscreen button outside .hero-slideshow
+// Find .hero element and insert button if not present
+function ensureHeroFullscreenBtn() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    let btn = document.querySelector('.hero-fullscreen-btn');
+    if (!btn) {
+        btn = document.createElement('button');
+        btn.className = 'hero-fullscreen-btn';
+        btn.setAttribute('aria-label', 'Fullscreen');
+        btn.style.position = 'absolute';
+        btn.style.top = '80px';
+        btn.style.right = '20px';
+        btn.style.zIndex = '9999';
+        btn.style.background = 'none';
+        btn.style.border = 'none';
+        btn.style.cursor = 'pointer';
+        btn.style.padding = '0';
+        btn.style.opacity = '0.7';
+        btn.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><polyline points="9 3 9 9 3 9"></polyline><polyline points="15 21 15 15 21 15"></polyline></svg>`;
+        hero.appendChild(btn);
+    }
+    // Make sure pointer-events are set
+    btn.style.pointerEvents = 'auto';
+    // Attach click event for fullscreen
+    btn.onclick = function() {
+        const slideshow = document.querySelector('.hero-slideshow');
+        if (!slideshow) return;
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else {
+            if (slideshow.requestFullscreen) {
+                slideshow.requestFullscreen();
+            } else if (slideshow.webkitRequestFullscreen) {
+                slideshow.webkitRequestFullscreen();
+            }
+        }
+    };
+}
+
+// Run on DOMContentLoaded
+window.addEventListener('DOMContentLoaded', ensureHeroFullscreenBtn);
 
 // --- Ken Burns Effect Helper ---
 function getRandomKenBurns() {
