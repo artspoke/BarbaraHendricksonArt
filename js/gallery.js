@@ -15,13 +15,13 @@
  */
 
 const paintings = [
-    { id: 1, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-06.jpg" },
-    { id: 2, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-07.jpg" },
-    { id: 3, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-08.jpg" },
-    { id: 4, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-09.jpg" },
+    { id: 1, title: "Four Women", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-06.jpg" },
+    { id: 2, title: "Small Talk", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-07.jpg" },
+    { id: 3, title: "Jazz Dancer 1", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-08.jpg" },
+    { id: 4, title: "Stalking Dancer", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-09.jpg" },
     { id: 5, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-10.jpg" },
-    { id: 6, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-11.jpg" },
-    { id: 7, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-12.jpg" },
+    { id: 6, title: "Man Relaxing with Flowers", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-11.jpg" },
+    { id: 7, title: "Sisters with a Black Cat", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-12.jpg" },
     { id: 8, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-13.jpg" },
     { id: 9, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-14.jpg" },
     { id: 10, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-15.jpg" },
