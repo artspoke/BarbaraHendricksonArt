@@ -1,0 +1,21 @@
+# Placeholder for painting images
+
+Add web-resolution versions of Barbara's paintings here.
+
+## Recommended image specifications:
+- **Resolution:** 1200-1600 pixels on the longest side
+- **Format:** JPEG
+- **Quality:** 80-85%
+- **Naming:** Use descriptive names like `sunset-landscape.jpg`
+
+## Naming convention:
+- `painting-01.jpg`
+- `painting-02.jpg`
+- etc.
+
+Or use descriptive names:
+- `autumn-reflections.jpg`
+- `coastal-morning.jpg`
+- etc.
+
+After adding images, update the `paintings` array in `/js/gallery.js` with the correct filenames and metadata.

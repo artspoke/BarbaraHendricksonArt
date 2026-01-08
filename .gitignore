@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Original high-resolution images (keep these local, don't upload)
+images/paintings/originals/
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
