@@ -258,3 +258,174 @@ function injectKeyframes(keyframes) {
     }
     styleTag.textContent = keyframes;
 }
+
+// Add Gallery Fullscreen Button next to Gallery heading
+window.addEventListener('DOMContentLoaded', function() {
+    const gallerySection = document.querySelector('.gallery-section');
+    const galleryGrid = document.getElementById('gallery-grid');
+    const gallerySubtitle = gallerySection ? gallerySection.querySelector('.section-subtitle') : null;
+    // Thumbnail mode toggle button below subtitle
+    if (galleryGrid && gallerySubtitle && !document.querySelector('.gallery-thumb-toggle-btn')) {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'gallery-thumb-toggle-btn';
+        toggleBtn.textContent = 'Fill Thumbnail Positions';
+        toggleBtn.style.fontSize = '1.1rem';
+        toggleBtn.style.padding = '0.75rem 1.5rem';
+        toggleBtn.style.border = '1px solid var(--color-accent)';
+        toggleBtn.style.background = 'none';
+        toggleBtn.style.color = 'var(--color-accent)';
+        toggleBtn.style.cursor = 'pointer';
+        toggleBtn.style.borderRadius = '4px';
+        toggleBtn.style.transition = 'background 0.3s, color 0.3s';
+        let fitMode = true;
+        setTimeout(() => {
+            const imgs = galleryGrid.querySelectorAll('img');
+            imgs.forEach(img => {
+                img.style.objectFit = 'contain';
+                img.style.background = '#222';
+            });
+        }, 0);
+        toggleBtn.onclick = function() {
+            fitMode = !fitMode;
+            const imgs = galleryGrid.querySelectorAll('img');
+            imgs.forEach(img => {
+                img.style.objectFit = fitMode ? 'contain' : 'cover';
+                img.style.background = fitMode ? '#222' : 'none';
+            });
+            toggleBtn.textContent = fitMode ? 'Fill Thumbnail Positions' : 'Show Entire Image';
+        };
+        // Insert after gallery subtitle
+        gallerySubtitle.parentNode.insertBefore(toggleBtn, gallerySubtitle.nextSibling);
+    }
+    // Slideshow button below gallery grid
+    if (galleryGrid && !document.querySelector('.gallery-fullscreen-btn')) {
+        const fsBtn = document.createElement('button');
+        fsBtn.className = 'gallery-fullscreen-btn';
+        fsBtn.setAttribute('aria-label', 'Fullscreen Gallery Slideshow');
+        fsBtn.innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><polyline points="9 3 9 9 3 9"></polyline><polyline points="15 21 15 15 21 15"></polyline></svg> Slideshow`;
+        fsBtn.style.position = 'static';
+        fsBtn.style.margin = '2.5rem 0 0 0';
+        fsBtn.style.verticalAlign = 'middle';
+        fsBtn.style.fontSize = '1.1rem';
+        fsBtn.style.display = 'inline-flex';
+        fsBtn.style.alignItems = 'center';
+        fsBtn.style.gap = '0.5rem';
+        fsBtn.addEventListener('click', openGalleryFullscreen);
+        // Insert after gallery grid
+        galleryGrid.parentNode.insertBefore(fsBtn, galleryGrid.nextSibling);
+    }
+});
+
+// Animated fullscreen gallery slideshow with 6s static, 6s crossfade, and delayed title
+let gallerySlideshowTimer = null;
+function openGalleryFullscreen() {
+    let overlay = document.querySelector('.gallery-fullscreen-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'gallery-fullscreen-overlay';
+        overlay.innerHTML = `
+            <div class="gallery-fullscreen-slides">
+                <img class="gallery-fullscreen-image" src="" alt="" draggable="false" style="opacity:1; position:absolute; left:0; top:0; width:100vw; height:100vh; object-fit:contain; background:#000; transition:opacity 6s;">
+                <img class="gallery-fullscreen-image next" src="" alt="" draggable="false" style="opacity:0; position:absolute; left:0; top:0; width:100vw; height:100vh; object-fit:contain; background:#000; transition:opacity 6s;">
+            </div>
+            <div class="gallery-fullscreen-title" style="position:absolute;bottom:40px;left:40px;color:#fff;font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:400;opacity:0;pointer-events:none;text-align:left;text-shadow:0 2px 10px rgba(0,0,0,0.5);transition:opacity 1.5s;z-index:10002;"></div>
+            <button class="gallery-fullscreen-exit" aria-label="Exit Fullscreen">&times;</button>
+        `;
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        overlay.style.background = '#000';
+        overlay.style.zIndex = '10000';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+        overlay.style.transition = 'opacity 0.5s, visibility 0.5s';
+        document.body.appendChild(overlay);
+    }
+    overlay.classList.add('active');
+    overlay.style.opacity = '1';
+    overlay.style.visibility = 'visible';
+    document.body.style.overflow = 'hidden';
+    let index = 0;
+    const images = window.paintings.map(p => p.image);
+    const titles = window.paintings.map(p => p.title);
+    const slides = overlay.querySelector('.gallery-fullscreen-slides');
+    const imgA = slides.querySelector('.gallery-fullscreen-image:not(.next)');
+    const imgB = slides.querySelector('.gallery-fullscreen-image.next');
+    const titleEl = overlay.querySelector('.gallery-fullscreen-title');
+    let showingA = true;
+    let titleTimeout = null;
+    function crossfade(toIdx) {
+        // Start crossfade
+        if (showingA) {
+            imgB.src = images[toIdx];
+            imgB.style.opacity = '0';
+            setTimeout(() => {
+                imgB.style.transition = 'opacity 6s';
+                imgB.style.opacity = '1';
+                imgA.style.opacity = '0';
+            }, 100);
+        } else {
+            imgA.src = images[toIdx];
+            imgA.style.opacity = '0';
+            setTimeout(() => {
+                imgA.style.transition = 'opacity 6s';
+                imgA.style.opacity = '1';
+                imgB.style.opacity = '0';
+            }, 100);
+        }
+        // Delay title overlay to announce next image
+        if (titleTimeout) clearTimeout(titleTimeout);
+        titleEl.style.opacity = '0';
+        titleTimeout = setTimeout(() => {
+            titleEl.textContent = `"${titles[toIdx] || ''}"`;
+            titleEl.style.opacity = '1';
+            setTimeout(() => {
+                titleEl.style.opacity = '0';
+            }, 5000); // Show for 5s
+        }, 3000); // Show title 3s into crossfade
+        showingA = !showingA;
+    }
+    // Initial image and title
+    imgA.src = images[index];
+    imgA.style.opacity = '1';
+    imgB.style.opacity = '0';
+    titleEl.textContent = `"${titles[index] || ''}"`;
+    titleEl.style.opacity = '1';
+    setTimeout(() => {
+        titleEl.style.opacity = '0';
+    }, 5000);
+    if (gallerySlideshowTimer) clearInterval(gallerySlideshowTimer);
+    gallerySlideshowTimer = setInterval(() => {
+        index = (index + 1) % images.length;
+        crossfade(index);
+    }, 12000); // 6s static + 6s crossfade
+    overlay.querySelector('.gallery-fullscreen-exit').onclick = closeGalleryFullscreen;
+    function keyHandler(e) {
+        if (!overlay.classList.contains('active')) return;
+        if (e.key === 'Escape') closeGalleryFullscreen();
+    }
+    document.addEventListener('keydown', keyHandler);
+    overlay._keyHandler = keyHandler;
+    // Enter browser fullscreen
+    if (overlay.requestFullscreen) {
+        overlay.requestFullscreen();
+    } else if (overlay.webkitRequestFullscreen) {
+        overlay.webkitRequestFullscreen();
+    }
+}
+function closeGalleryFullscreen() {
+    const overlay = document.querySelector('.gallery-fullscreen-overlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', overlay._keyHandler);
+        if (gallerySlideshowTimer) clearInterval(gallerySlideshowTimer);
+    }
+}
