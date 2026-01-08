@@ -14,7 +14,7 @@
  * - price: price if available (optional, for future use)
  */
 
-const paintings = [
+window.paintings = [
     { id: 1, title: "Four Women", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-06.jpg" },
     { id: 2, title: "Small Talk", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-07.jpg" },
     { id: 3, title: "Jazz Dancer 1", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-08.jpg" },
@@ -41,7 +41,7 @@ const paintings = [
     { id: 24, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-29.jpg" },
     { id: 25, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-30.jpg" },
     { id: 26, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-31.jpg" },
-    { id: 27, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-32.jpg" },
+    { id: 27, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-32.jpg" }
 ];
 
 /**
@@ -277,7 +277,7 @@ class Gallery {
 // Initialize gallery when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Only initialize if there are paintings
-    if (paintings && paintings.length > 0) {
-        window.gallery = new Gallery(paintings);
+    if (window.paintings && window.paintings.length > 0) {
+        window.gallery = new Gallery(window.paintings);
     }
 });
