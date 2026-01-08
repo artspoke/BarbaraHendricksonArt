@@ -769,7 +769,16 @@ a:hover {
     }
     
     .hero-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .hero-cta {
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
     }
 }
 
