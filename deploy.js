@@ -21,11 +21,11 @@ async function deploy() {
         await client.ensureDir(remoteDir);
         // Do NOT clear remote directory
 
-        // Exclude images/paintings/ and hidden/system/dev files from upload/delete
+        // Exclude hidden/system/dev files from upload/delete, but allow images/paintings/more_to_come.png
         const shouldExclude = (src) => {
             const rel = path.relative(localDir, src);
-            // Exclude images/paintings
-            if (rel.startsWith('images/paintings')) return true;
+            // Exclude all images/paintings except more_to_come.png
+            if (rel.startsWith('images/paintings') && !rel.endsWith('more_to_come.png')) return true;
             // Exclude dotfiles and dotfolders (hidden files/folders)
             if (/^(\.|\/\.)/.test(rel)) return true;
             // Exclude node_modules, .git, .env, .ftpconfig
