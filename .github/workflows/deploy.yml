@@ -1,0 +1,30 @@
+name: Deploy to TigerTech
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.tigertech.net
+          username: barbarahendricksonart.com
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/deploy.sh
+            **/test.html
+            **/photo-test.html
+            **/.DS_Store
+            **/.env
+            **/.ftpconfig
