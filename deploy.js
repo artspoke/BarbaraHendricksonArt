@@ -79,6 +79,14 @@ async function deploy() {
 
         await uploadDir(localDir, remoteDir);
         await deleteRemoteExtras(remoteDir, localDir);
+        // Always upload images/paintings/more_to_come.png
+        const moreToComeLocal = path.join(localDir, 'images/paintings/more_to_come.png');
+        const moreToComeRemote = remoteDir + '/images/paintings/more_to_come.png';
+        if (fs.existsSync(moreToComeLocal)) {
+            await client.ensureDir(remoteDir + '/images/paintings');
+            await client.uploadFrom(moreToComeLocal, moreToComeRemote);
+            console.log('Uploaded:', moreToComeLocal);
+        }
         console.log('Deployment complete!');
     } catch (err) {
         console.error('FTP deployment failed:', err);
