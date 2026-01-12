@@ -264,20 +264,8 @@ window.addEventListener('DOMContentLoaded', function() {
     const gallerySection = document.querySelector('.gallery-section');
     const galleryGrid = document.getElementById('gallery-grid');
     const gallerySubtitle = gallerySection ? gallerySection.querySelector('.section-subtitle') : null;
-    // Thumbnail mode toggle button below subtitle
-    if (galleryGrid && gallerySubtitle && !document.querySelector('.gallery-thumb-toggle-btn')) {
-        const toggleBtn = document.createElement('button');
-        toggleBtn.className = 'gallery-thumb-toggle-btn';
-        toggleBtn.textContent = 'Fill Thumbnail Positions';
-        toggleBtn.style.fontSize = '1.1rem';
-        toggleBtn.style.padding = '0.75rem 1.5rem';
-        toggleBtn.style.border = '1px solid var(--color-accent)';
-        toggleBtn.style.background = 'none';
-        toggleBtn.style.color = 'var(--color-accent)';
-        toggleBtn.style.cursor = 'pointer';
-        toggleBtn.style.borderRadius = '4px';
-        toggleBtn.style.transition = 'background 0.3s, color 0.3s';
-        let fitMode = true;
+    // Always show gallery images in full (contain) mode with black background
+    if (galleryGrid) {
         setTimeout(() => {
             const imgs = galleryGrid.querySelectorAll('img');
             imgs.forEach(img => {
@@ -285,17 +273,6 @@ window.addEventListener('DOMContentLoaded', function() {
                 img.style.background = '#222';
             });
         }, 0);
-        toggleBtn.onclick = function() {
-            fitMode = !fitMode;
-            const imgs = galleryGrid.querySelectorAll('img');
-            imgs.forEach(img => {
-                img.style.objectFit = fitMode ? 'contain' : 'cover';
-                img.style.background = fitMode ? '#222' : 'none';
-            });
-            toggleBtn.textContent = fitMode ? 'Fill Thumbnail Positions' : 'Show Entire Image';
-        };
-        // Insert after gallery subtitle
-        gallerySubtitle.parentNode.insertBefore(toggleBtn, gallerySubtitle.nextSibling);
     }
     // Slideshow button below gallery grid
     if (galleryGrid && !document.querySelector('.gallery-fullscreen-btn')) {
