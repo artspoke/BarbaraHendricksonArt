@@ -42,7 +42,7 @@ window.paintings = [
     { id: 27, title: "Millie Pouring Tea", image: "images/paintings/Hendrickson-32.jpg" },
     { id: 28, title: "Cuban Woman", image: "images/paintings/Hendrickson-001.JPG" },
     { id: 29, title: "Dance We Must", image: "images/paintings/Hendrickson-002.JPG" },
-    { id: 30, title: "More to Come . . .", image: "images/paintings/more_to_come.png" }
+    { id: 30, title: "More to Come . . .", image: "images/paintings/more_to_come.png", instagram: "https://www.instagram.com/barbarahendricksonart/", excludeFromSlideshow: true }
 ];
 
 /**
@@ -76,22 +76,41 @@ class Gallery {
         this.galleryGrid.innerHTML = '';
         
         this.paintings.forEach((painting, index) => {
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-            item.dataset.index = index;
-            
-            item.innerHTML = `
-                <div class="gallery-item-inner">
-                    <img src="${painting.thumbnail || painting.image}" 
-                         alt="${painting.title}"
-                         loading="lazy"
-                         draggable="false">
-                    <div class="gallery-overlay">
-                        <span class="painting-title">${painting.title}</span>
+            let item;
+            if (painting.title === "More to Come . . ." && painting.instagram) {
+                item = document.createElement('a');
+                item.className = 'gallery-item';
+                item.dataset.index = index;
+                item.href = painting.instagram;
+                item.target = '_blank';
+                item.rel = 'noopener';
+                item.innerHTML = `
+                    <div class="gallery-item-inner">
+                        <img src="${painting.thumbnail || painting.image}" 
+                             alt="${painting.title}"
+                             loading="lazy"
+                             draggable="false">
+                        <div class="gallery-overlay">
+                            <span class="painting-title">${painting.title}</span>
+                        </div>
                     </div>
-                </div>
-            `;
-            
+                `;
+            } else {
+                item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.dataset.index = index;
+                item.innerHTML = `
+                    <div class="gallery-item-inner">
+                        <img src="${painting.thumbnail || painting.image}" 
+                             alt="${painting.title}"
+                             loading="lazy"
+                             draggable="false">
+                        <div class="gallery-overlay">
+                            <span class="painting-title">${painting.title}</span>
+                        </div>
+                    </div>
+                `;
+            }
             this.galleryGrid.appendChild(item);
         });
     }

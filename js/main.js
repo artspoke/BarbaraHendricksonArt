@@ -7,9 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dynamically create hero slides from gallery images
     if (window.paintings && window.paintings.length > 0) {
         const heroSlideshow = document.querySelector('.hero-slideshow');
+        // Filter out paintings marked excludeFromSlideshow
+        const slideshowPaintings = window.paintings.filter(p => !p.excludeFromSlideshow);
         if (heroSlideshow) {
             heroSlideshow.innerHTML = '';
-            window.paintings.forEach((painting, idx) => {
+            slideshowPaintings.forEach((painting, idx) => {
                 const slide = document.createElement('div');
                 slide.className = 'hero-slide' + (idx === 0 ? ' active' : '');
                 slide.style.backgroundImage = `url('${painting.image}')`;
@@ -328,8 +330,10 @@ function openGalleryFullscreen() {
     overlay.style.visibility = 'visible';
     document.body.style.overflow = 'hidden';
     let index = 0;
-    const images = window.paintings.map(p => p.image);
-    const titles = window.paintings.map(p => p.title);
+    // Filter out paintings marked excludeFromSlideshow
+    const slideshowPaintings = window.paintings.filter(p => !p.excludeFromSlideshow);
+    const images = slideshowPaintings.map(p => p.image);
+    const titles = slideshowPaintings.map(p => p.title);
     const slides = overlay.querySelector('.gallery-fullscreen-slides');
     const imgA = slides.querySelector('.gallery-fullscreen-image:not(.next)');
     const imgB = slides.querySelector('.gallery-fullscreen-image.next');
