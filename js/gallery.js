@@ -27,9 +27,7 @@ window.paintings = [
     { id: 10, title: "Untitled", image: "images/paintings/Hendrickson-15.jpg" },
     { id: 11, title: "Untitled", image: "images/paintings/Hendrickson-16.jpg" },
     { id: 12, title: "Untitled", image: "images/paintings/Hendrickson-17.jpg" },
-    { id: 13, title: "Untitled", image: "images/paintings/Hendrickson-18.jpg" },
-    { id: 14, title: "Untitled", image: "images/paintings/Hendrickson-19.jpg" },
-    { id: 15, title: "Untitled", image: "images/paintings/Hendrickson-20.jpg" },
+    // ...removed Hendrickson-18, 19, 20 (deleted images)
     { id: 16, title: "Untitled", image: "images/paintings/Hendrickson-21.jpg" },
     { id: 17, title: "Untitled", image: "images/paintings/Hendrickson-22.jpg" },
     { id: 18, title: "Untitled", image: "images/paintings/Hendrickson-23.jpg" },
