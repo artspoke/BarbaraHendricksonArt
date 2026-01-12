@@ -39,7 +39,9 @@ window.paintings = [
     { id: 24, title: "Untitled", image: "images/paintings/Hendrickson-29.jpg" },
     { id: 25, title: "Untitled", image: "images/paintings/Hendrickson-30.jpg" },
     { id: 26, title: "Untitled", image: "images/paintings/Hendrickson-31.jpg" },
-    { id: 27, title: "Untitled", image: "images/paintings/Hendrickson-32.jpg" }
+    { id: 27, title: "Untitled", image: "images/paintings/Hendrickson-32.jpg" },
+    { id: 28, title: "Untitled", image: "images/paintings/Hendrickson-001.JPG" },
+    { id: 29, title: "Untitled", image: "images/paintings/Hendrickson-002.JPG" }
 ];
 
 /**
