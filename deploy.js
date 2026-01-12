@@ -21,9 +21,8 @@ async function deploy() {
         await client.ensureDir(remoteDir);
         // Do NOT clear remote directory
 
-        // Upload all files except images/paintings/
+        // Exclude images/paintings/ from upload/delete
         const excludeImages = (src) => {
-            // Skip anything in images/paintings/
             const rel = path.relative(localDir, src);
             return !rel.startsWith('images/paintings');
         };
@@ -44,7 +43,36 @@ async function deploy() {
             }
         }
 
+        // Recursively delete remote files/dirs that do not exist locally (except images/paintings/)
+        async function deleteRemoteExtras(remote, local) {
+            let list;
+            try {
+                list = await client.list(remote);
+            } catch (e) {
+                return;
+            }
+            for (const item of list) {
+                const localPath = path.join(local, item.name);
+                const remotePath = remote + '/' + item.name;
+                if (!excludeImages(localPath)) continue;
+                if (item.type === 2) { // Directory
+                    if (!fs.existsSync(localPath) || !fs.statSync(localPath).isDirectory()) {
+                        await client.removeDir(remotePath);
+                        console.log('Deleted remote dir:', remotePath);
+                    } else {
+                        await deleteRemoteExtras(remotePath, localPath);
+                    }
+                } else {
+                    if (!fs.existsSync(localPath)) {
+                        await client.remove(remotePath);
+                        console.log('Deleted remote file:', remotePath);
+                    }
+                }
+            }
+        }
+
         await uploadDir(localDir, remoteDir);
+        await deleteRemoteExtras(remoteDir, localDir);
         console.log('Deployment complete!');
     } catch (err) {
         console.error('FTP deployment failed:', err);
