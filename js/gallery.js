@@ -41,7 +41,8 @@ window.paintings = [
     { id: 26, title: "Two Women on the Subway", image: "images/paintings/Hendrickson-31.jpg" },
     { id: 27, title: "Millie Pouring Tea", image: "images/paintings/Hendrickson-32.jpg" },
     { id: 28, title: "Cuban Woman", image: "images/paintings/Hendrickson-001.JPG" },
-    { id: 29, title: "Dance We Must", image: "images/paintings/Hendrickson-002.JPG" }
+    { id: 29, title: "Dance We Must", image: "images/paintings/Hendrickson-002.JPG" },
+    { id: 30, title: "More to Come . . .", image: "images/paintings/more_to_come.png" }
 ];
 
 /**
