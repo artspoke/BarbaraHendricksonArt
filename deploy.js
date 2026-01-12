@@ -21,10 +21,16 @@ async function deploy() {
         await client.ensureDir(remoteDir);
         // Do NOT clear remote directory
 
-        // Exclude images/paintings/ from upload/delete
-        const excludeImages = (src) => {
+        // Exclude images/paintings/ and hidden/system/dev files from upload/delete
+        const shouldExclude = (src) => {
             const rel = path.relative(localDir, src);
-            return !rel.startsWith('images/paintings');
+            // Exclude images/paintings
+            if (rel.startsWith('images/paintings')) return true;
+            // Exclude dotfiles and dotfolders (hidden files/folders)
+            if (/^(\.|\/\.)/.test(rel)) return true;
+            // Exclude node_modules, .git, .env, .ftpconfig
+            if (rel.startsWith('node_modules') || rel.startsWith('.git') || rel === '.env' || rel === '.ftpconfig') return true;
+            return false;
         };
 
         // Recursively upload files except excluded ones
@@ -33,7 +39,7 @@ async function deploy() {
             for (const entry of entries) {
                 const localPath = path.join(dir, entry.name);
                 const remotePath = remote + '/' + entry.name;
-                if (!excludeImages(localPath)) continue;
+                if (shouldExclude(localPath)) continue;
                 if (entry.isDirectory()) {
                     await client.ensureDir(remotePath);
                     await uploadDir(localPath, remotePath);
@@ -54,7 +60,7 @@ async function deploy() {
             for (const item of list) {
                 const localPath = path.join(local, item.name);
                 const remotePath = remote + '/' + item.name;
-                if (!excludeImages(localPath)) continue;
+                if (shouldExclude(localPath)) continue;
                 if (item.type === 2) { // Directory
                     if (!fs.existsSync(localPath) || !fs.statSync(localPath).isDirectory()) {
                         await client.removeDir(remotePath);

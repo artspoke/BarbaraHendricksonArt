@@ -4,7 +4,7 @@
  * Add your paintings to this array. Each painting object should have:
  * - id: unique identifier
  * - title: name of the painting
- * - medium: e.g., "Oil on Canvas"
+// * - medium: e.g., "Oil on Canvas" (removed)
  * - dimensions: e.g., "24\" x 36\""
  * - year: year created (optional)
  * - image: path to the web-resolution image (recommend 1200-1600px on longest side)
@@ -15,33 +15,33 @@
  */
 
 window.paintings = [
-    { id: 1, title: "Four Women", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-06.jpg" },
-    { id: 2, title: "Small Talk", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-07.jpg" },
-    { id: 3, title: "Jazz Dancer 1", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-08.jpg" },
-    { id: 4, title: "Stalking Dancer", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-09.jpg" },
-    { id: 5, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-10.jpg" },
-    { id: 6, title: "Man Relaxing with Flowers", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-11.jpg" },
-    { id: 7, title: "Sisters with a Black Cat", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-12.jpg" },
-    { id: 8, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-13.jpg" },
-    { id: 9, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-14.jpg" },
-    { id: 10, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-15.jpg" },
-    { id: 11, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-16.jpg" },
-    { id: 12, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-17.jpg" },
-    { id: 13, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-18.jpg" },
-    { id: 14, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-19.jpg" },
-    { id: 15, title: "Untitled", medium: "Charcoal", image: "images/paintings/Hendrickson-20.jpg" },
-    { id: 16, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-21.jpg" },
-    { id: 17, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-22.jpg" },
-    { id: 18, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-23.jpg" },
-    { id: 19, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-24.jpg" },
-    { id: 20, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-25.jpg" },
-    { id: 21, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-26.jpg" },
-    { id: 22, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-27.jpg" },
-    { id: 23, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-28.jpg" },
-    { id: 24, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-29.jpg" },
-    { id: 25, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-30.jpg" },
-    { id: 26, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-31.jpg" },
-    { id: 27, title: "Untitled", medium: "Oil on Canvas", image: "images/paintings/Hendrickson-32.jpg" }
+    { id: 1, title: "Four Women", image: "images/paintings/Hendrickson-06.jpg" },
+    { id: 2, title: "Small Talk", image: "images/paintings/Hendrickson-07.jpg" },
+    { id: 3, title: "Jazz Dancer 1", image: "images/paintings/Hendrickson-08.jpg" },
+    { id: 4, title: "Stalking Dancer", image: "images/paintings/Hendrickson-09.jpg" },
+    { id: 5, title: "Untitled", image: "images/paintings/Hendrickson-10.jpg" },
+    { id: 6, title: "Man Relaxing with Flowers", image: "images/paintings/Hendrickson-11.jpg" },
+    { id: 7, title: "Sisters with a Black Cat", image: "images/paintings/Hendrickson-12.jpg" },
+    { id: 8, title: "Untitled", image: "images/paintings/Hendrickson-13.jpg" },
+    { id: 9, title: "Untitled", image: "images/paintings/Hendrickson-14.jpg" },
+    { id: 10, title: "Untitled", image: "images/paintings/Hendrickson-15.jpg" },
+    { id: 11, title: "Untitled", image: "images/paintings/Hendrickson-16.jpg" },
+    { id: 12, title: "Untitled", image: "images/paintings/Hendrickson-17.jpg" },
+    { id: 13, title: "Untitled", image: "images/paintings/Hendrickson-18.jpg" },
+    { id: 14, title: "Untitled", image: "images/paintings/Hendrickson-19.jpg" },
+    { id: 15, title: "Untitled", image: "images/paintings/Hendrickson-20.jpg" },
+    { id: 16, title: "Untitled", image: "images/paintings/Hendrickson-21.jpg" },
+    { id: 17, title: "Untitled", image: "images/paintings/Hendrickson-22.jpg" },
+    { id: 18, title: "Untitled", image: "images/paintings/Hendrickson-23.jpg" },
+    { id: 19, title: "Untitled", image: "images/paintings/Hendrickson-24.jpg" },
+    { id: 20, title: "Untitled", image: "images/paintings/Hendrickson-25.jpg" },
+    { id: 21, title: "Untitled", image: "images/paintings/Hendrickson-26.jpg" },
+    { id: 22, title: "Untitled", image: "images/paintings/Hendrickson-27.jpg" },
+    { id: 23, title: "Untitled", image: "images/paintings/Hendrickson-28.jpg" },
+    { id: 24, title: "Untitled", image: "images/paintings/Hendrickson-29.jpg" },
+    { id: 25, title: "Untitled", image: "images/paintings/Hendrickson-30.jpg" },
+    { id: 26, title: "Untitled", image: "images/paintings/Hendrickson-31.jpg" },
+    { id: 27, title: "Untitled", image: "images/paintings/Hendrickson-32.jpg" }
 ];
 
 /**
@@ -87,7 +87,6 @@ class Gallery {
                          draggable="false">
                     <div class="gallery-overlay">
                         <span class="painting-title">${painting.title}</span>
-                        <span class="painting-medium">${painting.medium}</span>
                     </div>
                 </div>
             `;
@@ -191,10 +190,10 @@ class Gallery {
         this.lightboxImage.alt = painting.title;
         this.lightboxTitle.textContent = painting.title;
         
-        // Build details string
-        let details = painting.medium;
-        if (painting.dimensions) details += ` • ${painting.dimensions}`;
-        if (painting.year) details += ` • ${painting.year}`;
+        // Build details string (no medium)
+        let details = '';
+        if (painting.dimensions) details += painting.dimensions;
+        if (painting.year) details += (details ? ' • ' : '') + painting.year;
         this.lightboxDetails.textContent = details;
         
         this.lightbox.classList.add('active');
