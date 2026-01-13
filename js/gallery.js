@@ -28,7 +28,7 @@ window.paintings = [
     { id: 11, title: "Staring", image: "images/paintings/Hendrickson-16.jpg" },
     { id: 12, title: "Cat Watching Two Women", image: "images/paintings/Hendrickson-17.jpg" },
     // ...removed Hendrickson-18, 19, 20 (deleted images)
-    { id: 16, title: "First Caravan", image: "images/paintings/Hendrickson-21.jpg" },
+    { id: 16, title: "First Canvas", image: "images/paintings/Hendrickson-21.jpg" },
     { id: 17, title: "Checkers", image: "images/paintings/Hendrickson-22.jpg" },
     { id: 18, title: "Lovers with Plant", image: "images/paintings/Hendrickson-23.jpg" },
     { id: 19, title: "Pathways", image: "images/paintings/Hendrickson-24.jpg" },
